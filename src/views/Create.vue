@@ -53,8 +53,17 @@
 
 		<!-- Forms title & description-->
 		<header>
+			<FileUploader
+				v-model="file"
+				:label="'Subir archivos'"
+				:multiple="true"
+				:accept="'application/pdf'"/>
 			<h2>
-				<label class="hidden-visually" for="form-title">{{ t('forms', 'Form title') }}</label>
+				<label
+					class="hidden-visually"
+					for="form-title">
+						{{ t('forms', 'Form title') }}
+				</label>
 				<input
 					id="form-title"
 					ref="title"
@@ -148,6 +157,7 @@ import TopBar from '../components/TopBar'
 import ViewsMixin from '../mixins/ViewsMixin'
 import SetWindowTitle from '../utils/SetWindowTitle'
 import OcsResponse2Data from '../utils/OcsResponse2Data'
+import FileUpload from '../components/FileUploader';
 
 window.axios = axios
 
@@ -164,6 +174,7 @@ export default {
 		QuestionShort,
 		QuestionMultiple,
 		TopBar,
+		FileUpload
 	},
 
 	mixins: [ViewsMixin],
@@ -185,6 +196,7 @@ export default {
 			// Various states
 			isLoadingQuestions: false,
 			isDragging: false,
+			file:[]
 		}
 	},
 
