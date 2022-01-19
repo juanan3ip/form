@@ -21,19 +21,19 @@
 	<div>
 		<label v-if="label">{{ label }}</label>
 		<form
+			v-if="multiple || uploadedFiles.length === 0"
 			enctype="multipart/form-data"
 			novalidate
-			v-if="multiple || uploadedFiles.length === 0"
 			class="mb-2">
 			<div
 				class="dropbox">
 				<input
 					type="file"
-					:multiple="this.multiple"
+					:multiple="multiple"
 					:name="uploadFieldName"
-					@change="filesChange($event.target.name, $event.target.files);"
-					:accept="this.accept"
-					class="input-file">
+					:accept="accept"
+					class="input-file"
+					@change="filesChange($event.target.name, $event.target.files);">
 				<p
 					class="mb-0">
 					Arrastra los archivos o haz click aquí
@@ -43,10 +43,10 @@
 
 		<div>
 			<div
-				:class="{'mb-2 card': true, 'mr-2': true, 'file': true, 'w-100': preview}"
 				v-for="(file, index) in uploadedFiles"
 				:key="index"
-				:no-body="translated.length === 0" >
+				:class="{'mb-2 card': true, 'mr-2': true, 'file': true, 'w-100': preview}"
+				:no-body="translated.length === 0">
 				<div class="d-flex">
 					<a
 						class="file-name"
@@ -56,9 +56,9 @@
 					</a>
 					<button
 						class="danger"
-						v-on:click="deleteUploadedFile(index)">
+						@click="deleteUploadedFile(index)">
 						<i
-							class="bi bi-trash"></i>
+							class="bi bi-trash" />
 					</button>
 				</div>
 
@@ -68,7 +68,7 @@
 					:style="{
 						height: '100px',
 						'background-image': 'url('+file.url+')',
-					}"></div>
+					}" />
 			</div>
 		</div>
 	</div>
@@ -76,42 +76,40 @@
 
 <script>
 export default {
+	name: 'FileUploader',
     props: {
-        value: [
-        	Object,
-			Array
-		],
+        value: [Object, Array],
         label: String,
         folder: {
             type: String,
-            default: ''
+            default: '',
         },
         multiple: {
             type: Boolean,
-            default: false
+            default: false,
         },
         preview: {
             type: Boolean,
-            default: false
+            default: false,
         },
         accept: {
             type: String,
-            default: '*/*'
-        }
-    },
-    created() {
-        this.init();
+            default: '*/*',
+        },
     },
     data() {
         return {
             uploadedFiles: [],
-            uploadFieldName: 'file'
+            uploadFieldName: 'file',
         }
     },
     watch: {
         value() {
             this.init();
         },
+    },
+    created() {
+        this.init();
     },
     methods: {
         init() {
@@ -124,18 +122,18 @@ export default {
                 this.uploadedFiles.push(x.data.file);
                 this.emitChange();
             }).catch(err => {
-                console.log(err)
+ console.error(err);
             });
         },
         filesChange(fieldName, fileList) {
             if (!fileList.length) return;
 
             Array.from(Array(fileList.length).keys()).map(file => {
-                console.log(fileList[file])
                 const formData = new FormData();
                 formData.append(fieldName, fileList[file], fileList[file].name);
                 formData.append('folder', this.folder)
                 this.upload(formData);
+                return file;
             });
         },
         deleteUploadedFile(index) {
@@ -147,8 +145,8 @@ export default {
         },
         emitChange() {
             this.$emit('input', this.multiple ? this.uploadedFiles : this.uploadedFiles[0]);
-        }
-    }
+        },
+    },
 }
 </script>
 
@@ -165,20 +163,20 @@ export default {
 }
 
 .input-file {
-    opacity: 0; /* invisible but it's there! */
-    width: 100%;
-    height: 125px;
-    position: absolute;
-    cursor: pointer;
+	opacity: 0; /* invisible but it's there! */
+	width: 100%;
+	height: 125px;
+	position: absolute;
+	cursor: pointer;
 }
 
 .dropbox:hover {
-    background: lightblue; /* when mouse over to the drop zone, change color */
+	background: lightblue; /* when mouse over to the drop zone, change color */
 }
 
 .dropbox p {
-    font-size: 1.2em;
-    text-align: center;
-    padding: 25px 0;
+	font-size: 1.2em;
+	text-align: center;
+	padding: 25px 0;
 }
 </style>
