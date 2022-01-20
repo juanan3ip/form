@@ -923,7 +923,7 @@ class ApiController extends OCSController {
 		foreach ($questions as $index => $question) {
 			$questions[$index]['mandatory'] = $question['isRequired'];
 		}
-		
+
 		$response = [
 			'submissions' => $submissions,
 			'questions' => $questions,

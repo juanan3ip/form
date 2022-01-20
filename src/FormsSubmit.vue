@@ -48,5 +48,9 @@ export default {
 			isLoggedIn: loadState('forms', 'isLoggedIn'),
 		}
 	},
+	mounted() {
+		// eslint-disable-next-line no-console
+		console.log(this.form);
+	},
 }
 </script>

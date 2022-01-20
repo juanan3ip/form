@@ -29,7 +29,8 @@
 		</EmptyContent>
 	</AppContent>
 
-	<AppContent v-else>
+	<AppContent v-else
+		:style="'background-color:'+color">
 		<!-- Show results & sidebar button -->
 		<TopBar>
 			<template #default>
@@ -50,7 +51,6 @@
 				</button>
 			</template>
 		</TopBar>
-
 		<!-- Forms title & description-->
 		<header>
 			<FileUploader
@@ -58,6 +58,9 @@
 				:label="'Subir archivos'"
 				:multiple="true"
 				:accept="'application/pdf'" />
+			<ColorPicker v-model="color">
+				<button> {{ t('forms', 'Color') }} </button>
+			</ColorPicker>
 			<h2>
 				<label
 					class="hidden-visually"
@@ -158,6 +161,7 @@ import ViewsMixin from '../mixins/ViewsMixin'
 import SetWindowTitle from '../utils/SetWindowTitle'
 import OcsResponse2Data from '../utils/OcsResponse2Data'
 import FileUploader from '../components/FileUploader';
+import ColorPicker from '@nextcloud/vue/dist/Components/ColorPicker'
 
 window.axios = axios
 
@@ -175,6 +179,7 @@ export default {
 		QuestionMultiple,
 		TopBar,
 		FileUploader,
+		ColorPicker,
 	},
 
 	mixins: [ViewsMixin],
@@ -197,6 +202,7 @@ export default {
 			isLoadingQuestions: false,
 			isDragging: false,
 			file: [],
+			color: '#ffffff',
 		}
 	},
 

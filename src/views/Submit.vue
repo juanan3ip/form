@@ -46,7 +46,6 @@
 		<EmptyContent v-else-if="success || !form.canSubmit" icon="icon-checkmark">
 			{{ t('forms', 'Thank you for completing the form!') }}
 		</EmptyContent>
-
 		<!-- Questions list -->
 		<form v-else
 			ref="form"
