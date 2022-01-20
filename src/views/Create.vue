@@ -30,7 +30,7 @@
 	</AppContent>
 
 	<AppContent v-else
-		:style="'background-color:'+color">
+		:style="'background-color:'+formColor">
 		<!-- Show results & sidebar button -->
 		<TopBar>
 			<template #default>
@@ -58,7 +58,9 @@
 				:label="'Subir archivos'"
 				:multiple="true"
 				:accept="'application/pdf'" />
-			<ColorPicker v-model="color">
+			<ColorPicker
+				v-model="color"
+				@input="onColorChange">
 				<button> {{ t('forms', 'Color') }} </button>
 			</ColorPicker>
 			<h2>
@@ -219,6 +221,10 @@ export default {
 			return t('forms', 'New form')
 		},
 
+		formColor() {
+			return (this.form.color) ? this.form.color : '#ffffff';
+		},
+
 		hasQuestions() {
 			return this.form.questions && this.form.questions.length === 0
 		},
@@ -256,6 +262,10 @@ export default {
 		'form.title'() {
 			SetWindowTitle(this.formTitle)
 		},
+
+		'form.color'() {
+			this.color = this.form.color;
+		},
 	},
 
 	beforeMount() {
@@ -276,6 +286,10 @@ export default {
 		}, 200),
 		onDescChange: debounce(function() {
 			this.saveFormProperty('description')
+		}, 200),
+		onColorChange: debounce(function() {
+			this.form.color = this.color;
+			this.saveFormProperty('color');
 		}, 200),
 
 		/**

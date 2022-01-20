@@ -27,7 +27,8 @@
 		</EmptyContent>
 	</AppContent>
 
-	<AppContent v-else>
+	<AppContent v-else
+		:style="'background-color:'+form.color">
 		<!-- Forms title & description-->
 		<header>
 			<h2 ref="title" class="form-title">

@@ -100,6 +100,8 @@ export default {
 				if (this.form.title === '') {
 					this.focusTitle()
 				}
+				// eslint-disable-next-line no-console
+				console.log(this.form);
 			}
 		},
 

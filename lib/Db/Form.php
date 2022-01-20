@@ -48,6 +48,10 @@ use OCP\AppFramework\Db\Entity;
  * @method void setIsAnonymous(bool $value)
  * @method integer getSubmitOnce()
  * @method void setSubmitOnce(bool $value)
+ * @method string getColor()
+ * @method void setColor(string $value)
+ * @method string getImg()
+ * @method void setImge(string $value)
  */
 class Form extends Entity {
 	protected $hash;
@@ -59,6 +63,8 @@ class Form extends Entity {
 	protected $expires;
 	protected $isAnonymous;
 	protected $submitOnce;
+	protected $color;
+	protected $img;
 
 	/**
 	 * Form constructor.
@@ -68,6 +74,8 @@ class Form extends Entity {
 		$this->addType('expires', 'integer');
 		$this->addType('isAnonymous', 'bool');
 		$this->addType('submitOnce', 'bool');
+		$this->addType('color', 'string');
+		$this->addType('img', 'string');
 	}
 
 	// JSON-Decoding of access-column.
@@ -92,7 +100,9 @@ class Form extends Entity {
 			'access' => $this->getAccess(),
 			'expires' => $this->getExpires(),
 			'isAnonymous' => $this->getIsAnonymous(),
-			'submitOnce' => $this->getSubmitOnce()
+			'submitOnce' => $this->getSubmitOnce(),
+			'color' => $this->getColor(),
+			'img' => $this->getImg(),
 		];
 	}
 }
