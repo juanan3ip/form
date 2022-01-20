@@ -53,16 +53,36 @@
 		</TopBar>
 		<!-- Forms title & description-->
 		<header>
-			<FileUploader
-				v-model="file"
-				:label="'Subir archivos'"
-				:multiple="true"
-				:accept="'application/pdf'" />
-			<ColorPicker
-				v-model="color"
-				@input="onColorChange">
-				<button> {{ t('forms', 'Color') }} </button>
-			</ColorPicker>
+			<div class="container-fluid">
+				<ColorPicker
+					v-model="color"
+					@input="onColorChange">
+					<button class="button btn-primary">
+						Color de Fondo
+					</button>
+				</ColorPicker>
+			</div>
+			<div class="container-fluid">
+				<label
+					class="hidden-visually"
+					for="form-img">
+					{{ t('forms', 'Form title') }}
+				</label>
+				<input
+					id="form-img"
+					ref="img"
+					v-model="img"
+					placeholder="Url para imagen de cabecera http://"
+					class="form-title"
+					type="text"
+					@change="onImgChange">
+			</div>
+			<div class="container-fluid">
+				<img v-if="formImg !== ''"
+					alt="Imagen de cabecera"
+					:src="formImg"
+					class="img-header">
+			</div>
 			<h2>
 				<label
 					class="hidden-visually"
@@ -162,7 +182,6 @@ import TopBar from '../components/TopBar'
 import ViewsMixin from '../mixins/ViewsMixin'
 import SetWindowTitle from '../utils/SetWindowTitle'
 import OcsResponse2Data from '../utils/OcsResponse2Data'
-import FileUploader from '../components/FileUploader';
 import ColorPicker from '@nextcloud/vue/dist/Components/ColorPicker'
 
 window.axios = axios
@@ -180,7 +199,6 @@ export default {
 		QuestionShort,
 		QuestionMultiple,
 		TopBar,
-		FileUploader,
 		ColorPicker,
 	},
 
@@ -203,7 +221,7 @@ export default {
 			// Various states
 			isLoadingQuestions: false,
 			isDragging: false,
-			file: [],
+			img: '',
 			color: '#ffffff',
 		}
 	},
@@ -223,6 +241,10 @@ export default {
 
 		formColor() {
 			return (this.form.color) ? this.form.color : '#ffffff';
+		},
+
+		formImg() {
+			return (this.form.img) ? this.form.img + '/preview' : '';
 		},
 
 		hasQuestions() {
@@ -266,6 +288,10 @@ export default {
 		'form.color'() {
 			this.color = this.form.color;
 		},
+
+		'form.img'() {
+			this.img = this.form.img;
+		},
 	},
 
 	beforeMount() {
@@ -290,6 +316,10 @@ export default {
 		onColorChange: debounce(function() {
 			this.form.color = this.color;
 			this.saveFormProperty('color');
+		}, 200),
+		onImgChange: debounce(function() {
+			this.form.img = this.img;
+			this.saveFormProperty('img');
 		}, 200),
 
 		/**
@@ -446,6 +476,11 @@ export default {
 
 		h2 {
 			margin-bottom: 0; // because the input field has enough padding
+		}
+
+		.img-header {
+			width: 100%;
+			max-height: 300px;
 		}
 
 		.form-title,
