@@ -24,6 +24,7 @@
 	<Question
 		v-bind.sync="$attrs"
 		:text="text"
+		:img="img"
 		:is-required="isRequired"
 		:edit.sync="edit"
 		:read-only="readOnly"
@@ -34,6 +35,7 @@
 		:shift-drag-handle="shiftDragHandle"
 		@update:text="onTitleChange"
 		@update:isRequired="onRequiredChange"
+		@update:img="onImgChange"
 		@delete="onDelete">
 		<ul class="question__content">
 			<template v-for="(answer, index) in options">

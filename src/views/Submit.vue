@@ -272,7 +272,7 @@ export default {
 		width: 100%;
 		max-height: 300px;
 		max-width: 750px;
-	},
+	}
 	header,
 	form {
 		width: 100%;

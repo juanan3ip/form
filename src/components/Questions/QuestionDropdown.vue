@@ -24,6 +24,7 @@
 	<Question
 		v-bind.sync="$attrs"
 		:text="text"
+		:img="img"
 		:is-required="isRequired"
 		:edit.sync="edit"
 		:read-only="readOnly"
@@ -34,6 +35,7 @@
 		:shift-drag-handle="shiftDragHandle"
 		@update:text="onTitleChange"
 		@update:isRequired="onRequiredChange"
+		@update:img="onImgChange"
 		@delete="onDelete">
 		<select v-if="!edit"
 			:id="text"

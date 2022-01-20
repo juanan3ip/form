@@ -61,6 +61,20 @@
 				</ActionButton>
 			</Actions>
 		</div>
+		<div class="container-fluid">
+			<input v-if="edit || !img"
+				:value="img"
+				placeholder="Url para imagen de pregunta http://"
+				class="question__url"
+				type="text"
+				@change="onImgChange">
+		</div>
+		<div class="container-fluid">
+			<img v-if="img !== ''"
+				alt="Imagen de pregunta"
+				:src="img+'/preview'"
+				class="question__img">
+		</div>
 
 		<!-- Question content -->
 		<slot />
@@ -92,6 +106,10 @@ export default {
 			required: true,
 		},
 		text: {
+			type: String,
+			required: true,
+		},
+		img: {
 			type: String,
 			required: true,
 		},
@@ -159,6 +177,10 @@ export default {
 
 		onRequiredChange(isRequired) {
 			this.$emit('update:isRequired', isRequired)
+		},
+
+		onImgChange({ target }) {
+			this.$emit('update:img', target.value)
 		},
 
 		/**
@@ -234,7 +256,10 @@ export default {
 		max-width: 100%;
 		padding: 0;
 	}
-
+	&__url, &__img {
+		width: 95%;
+		max-width: 95%;
+	}
 	&__header {
 		display: flex;
 		align-items: center;

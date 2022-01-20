@@ -44,6 +44,14 @@ export default {
 		},
 
 		/**
+		 * The question img
+		 */
+		img: {
+			type: String,
+			required: true,
+		},
+
+		/**
 		 * Required-Setting
 		 */
 		isRequired: {
@@ -124,6 +132,16 @@ export default {
 		onRequiredChange: debounce(function(isRequiredValue) {
 			this.$emit('update:isRequired', isRequiredValue)
 			this.saveQuestionProperty('isRequired', isRequiredValue)
+		}, 200),
+
+		/**
+		 * Forward the required change to the parent and store to db
+		 *
+		 * @param {boolean} isRequiredValue new isRequired Value
+		 */
+		onImgChange: debounce(function(img) {
+			this.$emit('update:img', img)
+			this.saveQuestionProperty('img', img)
 		}, 200),
 
 		/**
