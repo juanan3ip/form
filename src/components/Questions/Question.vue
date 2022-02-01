@@ -62,7 +62,7 @@
 			</Actions>
 		</div>
 		<div class="container-fluid">
-			<input v-if="edit || !img"
+			<input v-if="edit"
 				:value="img"
 				placeholder="Url para imagen de pregunta http://"
 				class="question__url"
@@ -70,7 +70,7 @@
 				@change="onImgChange">
 		</div>
 		<div class="container-fluid">
-			<img v-if="img !== ''"
+			<img v-if="img"
 				alt="Imagen de pregunta"
 				:src="img+'/preview'"
 				class="question__img">

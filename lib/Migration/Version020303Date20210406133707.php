@@ -60,6 +60,7 @@ class Version020303Date20210406133707 extends SimpleMigrationStep {
 			$table->addColumn('img', self::TYPE_STRING, [
 				'notnull' => true,
 				'length' => 255,
+				'default' => ''
 			]);
 			return $schema;
 		}

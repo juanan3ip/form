@@ -84778,7 +84778,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "container-fluid" }, [
-        _vm.edit || !_vm.img
+        _vm.edit
           ? _c("input", {
               staticClass: "question__url",
               attrs: {
@@ -84792,7 +84792,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "container-fluid" }, [
-        _vm.img !== ""
+        _vm.img
           ? _c("img", {
               staticClass: "question__img",
               attrs: { alt: "Imagen de pregunta", src: _vm.img + "/preview" }
@@ -98857,4 +98857,4 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.n = _nextcloud_l10n__WEBPA
 
 /******/ })()
 ;
-//# sourceMappingURL=forms-submit.js.map?v=1d122c7c1ad7c53a7216
+//# sourceMappingURL=forms-submit.js.map?v=938b42fb7bc79b76693d
