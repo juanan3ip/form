@@ -76,6 +76,21 @@
 					class="form-title"
 					type="text"
 					@change="onImgChange">
+				<button @click="showModal">
+					Show Modal
+				</button>
+				<Modal v-if="modal"
+					size="large"
+					container="app-content"
+					@close="closeModal">
+					<div class="modal__content">
+						<iframe
+							:src="`../../files`"
+							width="100%"
+							height="100%"
+							frameborder="0" />
+					</div>
+				</Modal>
 			</div>
 			<div class="container-fluid">
 				<img v-if="formImg !== ''"
@@ -183,8 +198,12 @@ import ViewsMixin from '../mixins/ViewsMixin'
 import SetWindowTitle from '../utils/SetWindowTitle'
 import OcsResponse2Data from '../utils/OcsResponse2Data'
 import ColorPicker from '@nextcloud/vue/dist/Components/ColorPicker'
+import Modal from '@nextcloud/vue/dist/Components/Modal'
+import Clipboard from 'v-clipboard'
+import Vue from "vue"
 
 window.axios = axios
+Vue.use(Clipboard)
 
 export default {
 	name: 'Create',
@@ -200,6 +219,7 @@ export default {
 		QuestionMultiple,
 		TopBar,
 		ColorPicker,
+		Modal,
 	},
 
 	mixins: [ViewsMixin],
@@ -223,6 +243,7 @@ export default {
 			isDragging: false,
 			img: '',
 			color: '#ffffff',
+			modal: false,
 		}
 	},
 
@@ -304,6 +325,13 @@ export default {
 	},
 
 	methods: {
+
+		showModal() {
+			this.modal = true
+		},
+		closeModal() {
+			this.modal = false;
+		},
 		/**
 		 * Title & description save methods
 		 */
@@ -460,6 +488,11 @@ export default {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+
+	.modal__content{
+		width: 800px;
+		height: 600px;
+	}
 
 	header,
 	section {
