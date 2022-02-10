@@ -56,8 +56,8 @@ class Version020303Date20210406133708 extends SimpleMigrationStep {
 
 		$table = $schema->getTable('forms_v2_options');
 
-		if (!$table->hasColumn('is_required')) {
-			$table->addColumn('is_required', self::TYPE_BOOLEAN, [
+		if (!$table->hasColumn('is_open')) {
+			$table->addColumn('is_open', self::TYPE_BOOLEAN, [
 				'notnull' => false,
 				'default' => 0,
 			]);
