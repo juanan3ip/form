@@ -230,7 +230,6 @@ export default {
 		 */
 		async onSubmit() {
 			this.loading = true
-
 			try {
 				await axios.post(generateOcsUrl('apps/forms/api/v1.1/submission/insert'), {
 					formId: this.form.id,

@@ -22777,6 +22777,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -22851,19 +22857,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 // clone answer
                 answer = Object.assign({}, _this2.answer);
                 answer.text = _this2.$refs.input.value;
+                answer.isOpen = _this2.$refs.isopen.checked;
 
                 if (!_this2.answer.local) {
-                  _context.next = 11;
+                  _context.next = 13;
                   break;
                 }
 
                 // Dispatched for creation. Marked as synced
                 // eslint-disable-next-line vue/no-mutating-props
                 _this2.answer.local = false;
-                _context.next = 6;
+                _context.next = 7;
                 return _this2.debounceCreateAnswer(answer);
 
-              case 6:
+              case 7:
                 newAnswer = _context.sent;
                 // Forward changes, but use current answer.text to avoid erasing
                 // any in-between changes while creating the answer
@@ -22873,15 +22880,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this2.$emit('update:answer', answer.id, newAnswer);
 
-                _context.next = 13;
+                _this2.$emit('update:isOpen', answer.id, answer.isOpen);
+
+                _context.next = 15;
                 break;
 
-              case 11:
+              case 13:
                 _this2.debounceUpdateAnswer(answer);
 
                 _this2.$emit('update:answer', answer.id, answer);
 
-              case 13:
+              case 15:
               case "end":
                 return _context.stop();
             }
@@ -23004,7 +23013,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _nextcloud_axios__WEBPACK_IMPORTED_MODULE_2__["default"].post((0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_1__.generateOcsUrl)('apps/forms/api/v1.1/option/update'), {
                   id: _this5.answer.id,
                   keyValuePairs: {
-                    text: answer.text
+                    text: answer.text,
+                    isOpen: answer.isOpen
                   }
                 });
 
@@ -23228,6 +23238,10 @@ __webpack_require__.r(__webpack_exports__);
     onImgChange: function onImgChange(_ref2) {
       var target = _ref2.target;
       this.$emit('update:img', target.value);
+    },
+    onIsOpenChange: function onIsOpenChange(_ref3) {
+      var target = _ref3.target;
+      this.$emit('update:isOpen', target.value);
     },
 
     /**
@@ -23990,6 +24004,36 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -24070,6 +24114,17 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
       this.$emit('update:values', _toConsumableArray(new Set(values)));
     },
+    onChangeInput: function onChangeInput(event, answerId) {
+      var inputValue = event.target.value;
+      var values = this.values.slice();
+      var data = {
+        id: answerId,
+        value: inputValue
+      };
+      values.push(data); // Emit values and remove duplicates
+
+      this.$emit('update:values', _toConsumableArray(new Set(values)));
+    },
 
     /**
      * Is the provided answer checked ?
@@ -24112,6 +24167,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
      * @param {Array} options options to change
      */
     updateOptions: function updateOptions(options) {
+      // eslint-disable-next-line no-console
+      console.log(options);
       this.$emit('update:options', options);
     },
 
@@ -24807,6 +24864,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }, 200),
 
     /**
+     * Forward the required change to the parent and store to db
+     *
+     * @param {boolean} isRequiredValue new isRequired Value
+     */
+    onIsOpenChange: (0,debounce__WEBPACK_IMPORTED_MODULE_0__.debounce)(function (isOpen) {
+      this.$emit('update:isOpen', isOpen);
+      this.saveQuestionProperty('isOpen', isOpen);
+    }, 200),
+
+    /**
      * Forward the answer(s) change to the parent
      *
      * @param {Array} values the array of answers
@@ -24858,29 +24925,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
+                // eslint-disable-next-line no-console
+                console.log(value);
+                _context.prev = 1;
+                _context.next = 4;
                 return _nextcloud_axios__WEBPACK_IMPORTED_MODULE_3__["default"].post((0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_1__.generateOcsUrl)('apps/forms/api/v1.1/question/update'), {
                   id: _this2.id,
                   keyValuePairs: _defineProperty({}, key, value)
                 });
 
-              case 3:
-                _context.next = 9;
+              case 4:
+                _context.next = 10;
                 break;
 
-              case 5:
-                _context.prev = 5;
-                _context.t0 = _context["catch"](0);
+              case 6:
+                _context.prev = 6;
+                _context.t0 = _context["catch"](1);
                 (0,_nextcloud_dialogs__WEBPACK_IMPORTED_MODULE_2__.showError)(t('forms', 'Error while saving question'));
                 console.error(_context.t0);
 
-              case 9:
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 5]]);
+        }, _callee, null, [[1, 6]]);
       }))();
     }
   }
@@ -29223,7 +29292,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(false);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".question__content[data-v-f6249230] {\n  display: flex;\n  flex-direction: column;\n}\n.question__item[data-v-f6249230] {\n  position: relative;\n  display: inline-flex;\n  min-height: 44px;\n}\n.question__item__pseudoInput[data-v-f6249230] {\n  flex-shrink: 0;\n  display: inline-block;\n  height: 16px;\n  width: 16px !important;\n  vertical-align: middle;\n  margin: 0 14px 0px 0px;\n  border: 1px solid #878787;\n  border-radius: 1px;\n  position: relative;\n  top: 10px;\n}\n.question__item__pseudoInput--unique[data-v-f6249230] {\n  border-radius: 50%;\n}\n.question__item__pseudoInput[data-v-f6249230]:hover {\n  border-color: var(--color-primary-element);\n}\n.question__item .question__label[data-v-f6249230] {\n  flex: 1 1 100%;\n  text-align: left !important;\n  padding: 6.5px 0 0 30px;\n  line-height: 22px;\n  min-height: 34px;\n  height: min-content;\n  position: relative;\n}\n.question__item .question__label[data-v-f6249230]::before {\n  box-sizing: border-box;\n  position: absolute;\n  top: 10px;\n  width: 16px;\n  height: 16px;\n  margin-bottom: 0;\n  margin-left: -30px !important;\n  margin-right: 14px !important;\n}\n.question__input[type=text][data-v-f6249230] {\n  width: 100%;\n  min-height: 35px;\n  margin: 0;\n  padding: 0 0;\n  border: 0;\n  border-bottom: 1px dotted var(--color-border-dark);\n  border-radius: 0;\n  font-size: 14px;\n  position: relative;\n}\ninput.question__radio[data-v-f6249230],\ninput.question__checkbox[data-v-f6249230] {\n  z-index: -1;\n  left: 0px;\n  width: 16px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".question__content[data-v-f6249230] {\n  display: flex;\n  flex-direction: column;\n}\n.question__item[data-v-f6249230] {\n  position: relative;\n  display: inline-flex;\n  min-height: 44px;\n}\n.question__item__pseudoInput[data-v-f6249230] {\n  flex-shrink: 0;\n  display: inline-block;\n  height: 16px;\n  width: 16px !important;\n  vertical-align: middle;\n  margin: 0 14px 0px 0px;\n  border: 1px solid #878787;\n  border-radius: 1px;\n  position: relative;\n  top: 10px;\n}\n.question__item__pseudoInput--unique[data-v-f6249230] {\n  border-radius: 50%;\n}\n.question__item__pseudoInput[data-v-f6249230]:hover {\n  border-color: var(--color-primary-element);\n}\n.question__item .question__label[data-v-f6249230] {\n  flex: 1 1 100%;\n  text-align: left !important;\n  padding: 6.5px 0 0 30px;\n  line-height: 22px;\n  min-height: 34px;\n  height: min-content;\n  position: relative;\n}\n.question__item .question__label[data-v-f6249230]::before {\n  box-sizing: border-box;\n  position: absolute;\n  top: 10px;\n  width: 16px;\n  height: 16px;\n  margin-bottom: 0;\n  margin-left: -30px !important;\n  margin-right: 14px !important;\n}\n.question__input[type=text][data-v-f6249230] {\n  width: 100%;\n  min-height: 35px;\n  margin: 0;\n  padding: 0 0;\n  border: 0;\n  border-bottom: 1px dotted var(--color-border-dark);\n  border-radius: 0;\n  font-size: 14px;\n  position: relative;\n}\ninput.question__radio[data-v-f6249230],\ninput.question__checkbox[data-v-f6249230] {\n  z-index: -1;\n  left: 0px;\n  width: 16px;\n}\n.open[data-v-f6249230] {\n  width: 75%;\n  margin-top: -7px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -84616,6 +84685,15 @@ var render = function() {
         }
       }),
       _vm._v(" "),
+      !_vm.isUnique && !_vm.isDropdown
+        ? _c("input", {
+            ref: "isopen",
+            attrs: { type: "checkbox" },
+            domProps: { checked: _vm.answer.isOpen },
+            on: { change: _vm.onInput }
+          })
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "Actions",
         [
@@ -85181,53 +85259,55 @@ var render = function() {
             return [
               !_vm.edit
                 ? _c("li", { key: answer.id, staticClass: "question__item" }, [
-                    _c("input", {
-                      ref: "checkbox",
-                      refInFor: true,
-                      class: {
-                        "radio question__radio": _vm.isUnique,
-                        "checkbox question__checkbox": !_vm.isUnique
-                      },
-                      attrs: {
-                        id: _vm.id + "-answer-" + answer.id,
-                        "aria-checked": _vm.isChecked(answer.id),
-                        name: _vm.id + "-answer",
-                        required: _vm.checkRequired(answer.id),
-                        type: _vm.isUnique ? "radio" : "checkbox"
-                      },
-                      domProps: { checked: _vm.isChecked(answer.id) },
-                      on: {
-                        change: function($event) {
-                          return _vm.onChange($event, answer.id)
-                        },
-                        keydown: function($event) {
-                          if (
-                            !$event.type.indexOf("key") &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
+                    !_vm.edit && answer.isOpen === false
+                      ? _c("input", {
+                          ref: "checkbox",
+                          refInFor: true,
+                          class: {
+                            "radio question__radio": _vm.isUnique,
+                            "checkbox question__checkbox": !_vm.isUnique
+                          },
+                          attrs: {
+                            id: _vm.id + "-answer-" + answer.id,
+                            "aria-checked": _vm.isChecked(answer.id),
+                            name: _vm.id + "-answer",
+                            required: _vm.checkRequired(answer.id),
+                            type: _vm.isUnique ? "radio" : "checkbox"
+                          },
+                          domProps: { checked: _vm.isChecked(answer.id) },
+                          on: {
+                            change: function($event) {
+                              return _vm.onChange($event, answer.id)
+                            },
+                            keydown: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              if (
+                                $event.ctrlKey ||
+                                $event.shiftKey ||
+                                $event.altKey ||
+                                $event.metaKey
+                              ) {
+                                return null
+                              }
+                              $event.preventDefault()
+                              return _vm.onKeydownEnter.apply(null, arguments)
+                            }
                           }
-                          if (
-                            $event.ctrlKey ||
-                            $event.shiftKey ||
-                            $event.altKey ||
-                            $event.metaKey
-                          ) {
-                            return null
-                          }
-                          $event.preventDefault()
-                          return _vm.onKeydownEnter.apply(null, arguments)
-                        }
-                      }
-                    }),
+                        })
+                      : _vm._e(),
                     _vm._v(" "),
-                    !_vm.edit
+                    !_vm.edit && answer.isOpen === false
                       ? _c(
                           "label",
                           {
@@ -85237,6 +85317,82 @@ var render = function() {
                             attrs: { for: _vm.id + "-answer-" + answer.id }
                           },
                           [_vm._v(_vm._s(answer.text))]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    !_vm.edit && answer.isOpen === true
+                      ? _c("input", {
+                          ref: _vm.id + "-answer-" + answer.id,
+                          refInFor: true,
+                          class: {
+                            "radio question__radio": _vm.isUnique,
+                            "checkbox question__checkbox": !_vm.isUnique
+                          },
+                          attrs: {
+                            id: _vm.id + "-answer-" + answer.id,
+                            "aria-checked": _vm.isChecked(answer.id),
+                            name: _vm.id + "-answer",
+                            required: _vm.checkRequired(answer.id),
+                            type: _vm.isUnique ? "radio" : "checkbox"
+                          },
+                          domProps: { checked: _vm.isChecked(answer.id) },
+                          on: {
+                            keydown: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              if (
+                                $event.ctrlKey ||
+                                $event.shiftKey ||
+                                $event.altKey ||
+                                $event.metaKey
+                              ) {
+                                return null
+                              }
+                              $event.preventDefault()
+                              return _vm.onKeydownEnter.apply(null, arguments)
+                            }
+                          }
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    !_vm.edit && answer.isOpen === true
+                      ? _c(
+                          "label",
+                          {
+                            ref: "label",
+                            refInFor: true,
+                            staticClass: "question__label",
+                            attrs: { for: _vm.id + "-answer-" + answer.id }
+                          },
+                          [
+                            _vm._v(_vm._s(answer.text) + "\n\t\t\t\t\t"),
+                            _c("input", {
+                              ref: "input-text",
+                              refInFor: true,
+                              staticClass: "question__input open",
+                              attrs: {
+                                id: _vm.id + "-answer-" + answer.id + "-text",
+                                name: _vm.id + "-answer-text",
+                                required: _vm.checkRequired(answer.id),
+                                type: "text"
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.onChangeInput($event, answer.id)
+                                }
+                              }
+                            })
+                          ]
                         )
                       : _vm._e()
                   ])
@@ -85254,6 +85410,7 @@ var render = function() {
                     on: {
                       add: _vm.addNewEntry,
                       delete: _vm.deleteOption,
+                      "update:isOpen": _vm.onIsOpenChange,
                       "update:answer": _vm.updateAnswer
                     }
                   })
@@ -98857,4 +99014,4 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.n = _nextcloud_l10n__WEBPA
 
 /******/ })()
 ;
-//# sourceMappingURL=forms-submit.js.map?v=938b42fb7bc79b76693d
+//# sourceMappingURL=forms-submit.js.map?v=32f214453aaef9152365

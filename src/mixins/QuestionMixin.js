@@ -145,6 +145,16 @@ export default {
 		}, 200),
 
 		/**
+		 * Forward the required change to the parent and store to db
+		 *
+		 * @param {boolean} isRequiredValue new isRequired Value
+		 */
+		onIsOpenChange: debounce(function(isOpen) {
+			this.$emit('update:isOpen', isOpen)
+			this.saveQuestionProperty('isOpen', isOpen)
+		}, 200),
+
+		/**
 		 * Forward the answer(s) change to the parent
 		 *
 		 * @param {Array} values the array of answers
@@ -185,6 +195,8 @@ export default {
 		},
 
 		async saveQuestionProperty(key, value) {
+			// eslint-disable-next-line no-console
+			console.log(value);
 			try {
 				// TODO: add loading status feedback ?
 				await axios.post(generateOcsUrl('apps/forms/api/v1.1/question/update'), {

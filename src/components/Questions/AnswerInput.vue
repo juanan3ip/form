@@ -17,6 +17,12 @@
 			@input="onInput"
 			@keydown.delete="deleteEntry"
 			@keydown.enter.prevent="addNewEntry">
+		<input
+			v-if="!isUnique && !isDropdown"
+			ref="isopen"
+			:checked="answer.isOpen"
+			type="checkbox"
+			@change="onInput">
 
 		<!-- Delete answer -->
 		<Actions>
@@ -95,7 +101,8 @@ export default {
 		async onInput() {
 			// clone answer
 			const answer = Object.assign({}, this.answer)
-			answer.text = this.$refs.input.value
+			answer.text = this.$refs.input.value;
+			answer.isOpen = this.$refs.isopen.checked;
 
 			if (this.answer.local) {
 
@@ -108,6 +115,7 @@ export default {
 				// any in-between changes while creating the answer
 				Object.assign(newAnswer, { text: this.$refs.input.value })
 				this.$emit('update:answer', answer.id, newAnswer)
+				this.$emit('update:isOpen', answer.id, answer.isOpen)
 			} else {
 				this.debounceUpdateAnswer(answer)
 				this.$emit('update:answer', answer.id, answer)
@@ -178,6 +186,7 @@ export default {
 					id: this.answer.id,
 					keyValuePairs: {
 						text: answer.text,
+						isOpen: answer.isOpen,
 					},
 				})
 				console.debug('Updated answer', answer)

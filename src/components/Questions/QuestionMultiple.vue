@@ -42,7 +42,9 @@
 				<li v-if="!edit" :key="answer.id" class="question__item">
 					<!-- Answer radio/checkbox + label -->
 					<!-- TODO: migrate to radio/checkbox component once available -->
-					<input :id="`${id}-answer-${answer.id}`"
+					<input
+						v-if="!edit && answer.isOpen === false"
+						:id="`${id}-answer-${answer.id}`"
 						ref="checkbox"
 						:aria-checked="isChecked(answer.id)"
 						:checked="isChecked(answer.id)"
@@ -55,10 +57,37 @@
 						:type="isUnique ? 'radio' : 'checkbox'"
 						@change="onChange($event, answer.id)"
 						@keydown.enter.exact.prevent="onKeydownEnter">
-					<label v-if="!edit"
+					<label v-if="!edit && answer.isOpen === false"
 						ref="label"
 						:for="`${id}-answer-${answer.id}`"
 						class="question__label">{{ answer.text }}</label>
+					<input
+						v-if="!edit && answer.isOpen === true"
+						:id="`${id}-answer-${answer.id}`"
+						:ref="`${id}-answer-${answer.id}`"
+						:aria-checked="isChecked(answer.id)"
+						:checked="isChecked(answer.id)"
+						:class="{
+							'radio question__radio': isUnique,
+							'checkbox question__checkbox': !isUnique,
+						}"
+						:name="`${id}-answer`"
+						:required="checkRequired(answer.id)"
+						:type="isUnique ? 'radio' : 'checkbox'"
+						@keydown.enter.exact.prevent="onKeydownEnter">
+					<label v-if="!edit && answer.isOpen === true"
+						ref="label"
+						:for="`${id}-answer-${answer.id}`"
+						class="question__label">{{ answer.text }}
+						<input
+							:id="`${id}-answer-${answer.id}-text`"
+							ref="input-text"
+							:name="`${id}-answer-text`"
+							:required="checkRequired(answer.id)"
+							type="text"
+							class="question__input open"
+							@change="onChangeInput($event, answer.id)">
+					</label>
 				</li>
 
 				<!-- Answer text input edit -->
@@ -72,6 +101,7 @@
 					:max-option-length="maxStringLengths.optionText"
 					@add="addNewEntry"
 					@delete="deleteOption"
+					@update:isOpen="onIsOpenChange"
 					@update:answer="updateAnswer" />
 			</template>
 
@@ -179,6 +209,15 @@ export default {
 			this.$emit('update:values', [...new Set(values)])
 		},
 
+		onChangeInput(event, answerId) {
+			const inputValue = event.target.value;
+			const values = this.values.slice()
+			const data = { id: answerId, value: inputValue }
+			values.push(data)
+			// Emit values and remove duplicates
+			this.$emit('update:values', [...new Set(values)])
+		},
+
 		/**
 		 * Is the provided answer checked ?
 		 *
@@ -220,6 +259,8 @@ export default {
 		 * @param {Array} options options to change
 		 */
 		updateOptions(options) {
+			// eslint-disable-next-line no-console
+			console.log(options);
 			this.$emit('update:options', options)
 		},
 
@@ -424,6 +465,11 @@ input.question__checkbox {
 	// displayed at the correct location
 	left: 0px;
 	width: 16px;
+}
+
+.open {
+	width: 75%;
+	margin-top: -7px;
 }
 
 </style>

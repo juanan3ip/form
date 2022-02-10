@@ -183,6 +183,10 @@ export default {
 			this.$emit('update:img', target.value)
 		},
 
+		onIsOpenChange({ target }) {
+			this.$emit('update:isOpen', target.value)
+		},
+
 		/**
 		 * Enable the edit mode
 		 */
