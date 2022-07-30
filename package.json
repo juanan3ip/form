@@ -36,7 +36,7 @@
 		"@nextcloud/vue": "^4.1.1",
 		"acorn": "^8.5.0",
 		"babel-loader": "^8.2.2",
-		"core-js": "^3.18.0",
+		"core-js": "^3.24.1",
 		"crypto-js": "^4.1.1",
 		"css-loader": "^4.3.0",
 		"debounce": "^1.2.1",
