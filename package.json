@@ -46,7 +46,7 @@
 		"eslint-plugin-jsdoc": "^36.0.4",
 		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-promise": "^5.1.0",
-		"eslint-plugin-vue": "^7.15.0",
+		"eslint-plugin-vue": "^7.20.0",
 		"eslint-webpack-plugin": "^2.5.2",
 		"jquery": "^3.6.0",
 		"node-polyfill-webpack-plugin": "^1.1.0",
