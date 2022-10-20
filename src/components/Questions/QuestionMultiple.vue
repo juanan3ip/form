@@ -179,22 +179,22 @@ export default {
 						return false
 					}
 					return true
-				})
+				});
 
 				// update parent
-				this.updateOptions(options)
+				this.updateOptions(options);
 			}
 		},
 	},
 
 	methods: {
 		onChange(event, answerId) {
-			const isChecked = event.target.checked === true
-			let values = this.values.slice()
+			const isChecked = event.target.checked === true;
+			let values = this.values.slice();
 
 			// Radio
 			if (this.isUnique) {
-				this.$emit('update:values', [answerId])
+				this.$emit('update:values', [answerId]);
 				return
 			}
 

@@ -77,7 +77,7 @@
 					type="text"
 					@change="onImgChange">
 				<button @click="showModal">
-					Show Modal
+					Abrir Imágenes
 				</button>
 				<Modal v-if="modal"
 					size="large"

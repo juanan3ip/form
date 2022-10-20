@@ -18,7 +18,7 @@
 			@keydown.delete="deleteEntry"
 			@keydown.enter.prevent="addNewEntry">
 		<input
-			v-if="!isUnique && !isDropdown"
+			v-if="!isDropdown"
 			ref="isopen"
 			:checked="answer.isOpen"
 			type="checkbox"
@@ -158,7 +158,6 @@ export default {
 					questionId: answer.questionId,
 					text: answer.text,
 				})
-				console.debug('Created answer', answer)
 
 				// Was synced once, this is now up to date with the server
 				delete answer.local

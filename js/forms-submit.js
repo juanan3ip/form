@@ -22964,26 +22964,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 response = _context3.sent;
-                console.debug('Created answer', answer); // Was synced once, this is now up to date with the server
-
+                // Was synced once, this is now up to date with the server
                 delete answer.local;
                 return _context3.abrupt("return", Object.assign({}, answer, (0,_utils_OcsResponse2Data__WEBPACK_IMPORTED_MODULE_7__["default"])(response)));
 
-              case 9:
-                _context3.prev = 9;
+              case 8:
+                _context3.prev = 8;
                 _context3.t0 = _context3["catch"](0);
                 (0,_nextcloud_dialogs__WEBPACK_IMPORTED_MODULE_0__.showError)(t('forms', 'Error while saving the answer'));
                 console.error(_context3.t0);
 
-              case 13:
+              case 12:
                 return _context3.abrupt("return", answer);
 
-              case 14:
+              case 13:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 9]]);
+        }, _callee3, null, [[0, 8]]);
       }))();
     },
     debounceCreateAnswer: (0,p_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (answer) {
@@ -24725,7 +24724,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /**
  * @copyright Copyright (c) 2020 John Molakvoæ <skjnldsv@protonmail.com>
+ *
  * @author John Molakvoæ <skjnldsv@protonmail.com>
+ *
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -24740,6 +24741,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 
@@ -24985,7 +24987,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /**
  * @copyright Copyright (c) 2020 John Molakvoæ <skjnldsv@protonmail.com>
+ *
  * @author John Molakvoæ <skjnldsv@protonmail.com>
+ *
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -25000,6 +25004,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 
@@ -25351,8 +25356,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /**
  * @copyright Copyright (c) 2019 Marco Ambrosini <marcoambrosini@pm.me>
+ *
  * @author Marco Ambrosini <marcoambrosini@pm.me>
+ *
  * @author John Molakvoæ <skjnldsv@protonmail.com>
+ *
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -25367,6 +25375,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 /**
@@ -25437,7 +25446,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /**
  * @copyright Copyright (c) 2020 John Molakvoæ <skjnldsv@protonmail.com>
+ *
  * @author John Molakvoæ <skjnldsv@protonmail.com>
+ *
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -25452,6 +25463,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 var GenRandomId = function GenRandomId(length) {
   return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, length || 5);
@@ -25474,7 +25486,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /**
  * @copyright Copyright (c) 2021 Jonas Rittershofer <jotoeri@users.noreply.github.com>
+ *
  * @author Jonas Rittershofer <jotoeri@users.noreply.github.com>
+ *
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -25489,6 +25503,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 /**
@@ -25519,7 +25534,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /**
  * @copyright Copyright (c) 2020 Jonas Rittershofer <jotoeri@users.noreply.github.com>
+ *
  * @author Jonas Rittershofer <jotoeri@users.noreply.github.com>
+ *
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -25534,6 +25551,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 /**
@@ -84685,7 +84703,7 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      !_vm.isUnique && !_vm.isDropdown
+      !_vm.isDropdown
         ? _c("input", {
             ref: "isopen",
             attrs: { type: "checkbox" },
@@ -98981,7 +98999,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FormsSubmit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FormsSubmit */ "./src/FormsSubmit.vue");
 /**
  * @copyright Copyright (c) 2020 John Molakvoæ <skjnldsv@protonmail.com>
+ *
  * @author John Molakvoæ <skjnldsv@protonmail.com>
+ *
  * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
@@ -98996,6 +99016,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 
@@ -99014,4 +99035,4 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.n = _nextcloud_l10n__WEBPA
 
 /******/ })()
 ;
-//# sourceMappingURL=forms-submit.js.map?v=32f214453aaef9152365
+//# sourceMappingURL=forms-submit.js.map?v=8a89b9e796b72090ec53
