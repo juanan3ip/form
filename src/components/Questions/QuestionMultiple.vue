@@ -101,7 +101,6 @@
 					:max-option-length="maxStringLengths.optionText"
 					@add="addNewEntry"
 					@delete="deleteOption"
-					@update:isOpen="onIsOpenChange"
 					@update:answer="updateAnswer" />
 			</template>
 

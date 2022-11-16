@@ -66,6 +66,11 @@ export default {
 			type: Boolean,
 			required: true,
 		},
+		isOpen: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
 		isDropdown: {
 			type: Boolean,
 			required: true,
@@ -157,6 +162,7 @@ export default {
 				const response = await axios.post(generateOcsUrl('apps/forms/api/v1.1/option'), {
 					questionId: answer.questionId,
 					text: answer.text,
+					isOpen: answer.isOpen,
 				})
 
 				// Was synced once, this is now up to date with the server
@@ -190,7 +196,7 @@ export default {
 				})
 				console.debug('Updated answer', answer)
 			} catch (error) {
-				showError(t('forms', 'Error while saving the answer'))
+				// showError(t('forms', 'Error while saving the answer'))
 				console.error(error)
 			}
 		},

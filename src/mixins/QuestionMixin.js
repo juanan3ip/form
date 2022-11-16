@@ -21,7 +21,7 @@
  */
 import { debounce } from 'debounce'
 import { generateOcsUrl } from '@nextcloud/router'
-import { showError } from '@nextcloud/dialogs'
+// import { showError } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
 
 import Question from '../components/Questions/Question'
@@ -50,8 +50,8 @@ export default {
 		 * The question img
 		 */
 		img: {
-			type: String,
-			required: true,
+			type: String || Boolean,
+			required: false,
 		},
 
 		/**
@@ -148,16 +148,6 @@ export default {
 		}, 200),
 
 		/**
-		 * Forward the required change to the parent and store to db
-		 *
-		 * @param {boolean} isRequiredValue new isRequired Value
-		 */
-		onIsOpenChange: debounce(function(isOpen) {
-			this.$emit('update:isOpen', isOpen)
-			this.saveQuestionProperty('isOpen', isOpen)
-		}, 200),
-
-		/**
 		 * Forward the answer(s) change to the parent
 		 *
 		 * @param {Array} values the array of answers
@@ -209,7 +199,7 @@ export default {
 					},
 				})
 			} catch (error) {
-				showError(t('forms', 'Error while saving question'))
+				// showError(t('forms', 'Error while saving question'))
 				console.error(error)
 			}
 		},

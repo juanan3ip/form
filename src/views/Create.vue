@@ -241,7 +241,7 @@ export default {
 			// Various states
 			isLoadingQuestions: false,
 			isDragging: false,
-			img: '',
+			img: false,
 			color: '#ffffff',
 			modal: false,
 		}
@@ -265,7 +265,7 @@ export default {
 		},
 
 		formImg() {
-			return (this.form.img) ? this.form.img + '/preview' : '';
+			return (this.form.img) ? this.form.img + '/preview' : false;
 		},
 
 		hasQuestions() {

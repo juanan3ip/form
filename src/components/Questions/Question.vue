@@ -110,8 +110,9 @@ export default {
 			required: true,
 		},
 		img: {
-			type: String,
-			required: true,
+			type: String || Boolean,
+			required: false,
+			default: false,
 		},
 		titlePlaceholder: {
 			type: String,
@@ -180,11 +181,9 @@ export default {
 		},
 
 		onImgChange({ target }) {
-			this.$emit('update:img', target.value)
-		},
-
-		onIsOpenChange({ target }) {
-			this.$emit('update:isOpen', target.value)
+			if (target.value !== false) {
+				this.$emit('update:img', target.value)
+			}
 		},
 
 		/**
