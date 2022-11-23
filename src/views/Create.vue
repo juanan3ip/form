@@ -266,7 +266,7 @@ export default {
 		},
 
 		formImg() {
-			return (this.form.img) ? this.form.img + '/preview' : false;
+			return (this.form.img) ? this.form.img + '/preview' : '';
 		},
 
 		hasQuestions() {
