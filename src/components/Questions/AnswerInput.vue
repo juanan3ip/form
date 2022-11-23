@@ -107,7 +107,9 @@ export default {
 			// clone answer
 			const answer = Object.assign({}, this.answer)
 			answer.text = this.$refs.input.value;
-			answer.isOpen = this.$refs.isopen.checked;
+			if (!this.isDropdown) {
+				answer.isOpen = this.$refs.isopen.checked;
+			}
 
 			if (this.answer.local) {
 
@@ -120,7 +122,9 @@ export default {
 				// any in-between changes while creating the answer
 				Object.assign(newAnswer, { text: this.$refs.input.value })
 				this.$emit('update:answer', answer.id, newAnswer)
-				this.$emit('update:isOpen', answer.id, answer.isOpen)
+				if (!this.isDropdown) {
+					this.$emit('update:isOpen', answer.id, answer.isOpen)
+				}
 			} else {
 				this.debounceUpdateAnswer(answer)
 				this.$emit('update:answer', answer.id, answer)
@@ -159,11 +163,14 @@ export default {
 		 */
 		async createAnswer(answer) {
 			try {
-				const response = await axios.post(generateOcsUrl('apps/forms/api/v1.1/option'), {
+				const data = {
 					questionId: answer.questionId,
 					text: answer.text,
-					isOpen: answer.isOpen,
-				})
+				}
+				if (!this.isDropdown) {
+					data.isOpen = answer.isOpen;
+				}
+				const response = await axios.post(generateOcsUrl('apps/forms/api/v1.1/option'), data)
 
 				// Was synced once, this is now up to date with the server
 				delete answer.local
@@ -187,12 +194,15 @@ export default {
 		 */
 		async updateAnswer(answer) {
 			try {
+				const data = {
+					text: answer.text,
+				}
+				if (!this.isDropdown) {
+					data.isOpen = answer.isOpen;
+				}
 				await axios.post(generateOcsUrl('apps/forms/api/v1.1/option/update'), {
 					id: this.answer.id,
-					keyValuePairs: {
-						text: answer.text,
-						isOpen: answer.isOpen,
-					},
+					keyValuePairs: data
 				})
 				console.debug('Updated answer', answer)
 			} catch (error) {

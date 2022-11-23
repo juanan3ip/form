@@ -22862,7 +22862,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 // clone answer
                 answer = Object.assign({}, _this2.answer);
                 answer.text = _this2.$refs.input.value;
-                answer.isOpen = _this2.$refs.isopen.checked;
+
+                if (!_this2.isDropdown) {
+                  answer.isOpen = _this2.$refs.isopen.checked;
+                }
 
                 if (!_this2.answer.local) {
                   _context.next = 13;
@@ -22885,7 +22888,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this2.$emit('update:answer', answer.id, newAnswer);
 
-                _this2.$emit('update:isOpen', answer.id, answer.isOpen);
+                if (!_this2.isDropdown) {
+                  _this2.$emit('update:isOpen', answer.id, answer.isOpen);
+                }
 
                 _context.next = 15;
                 break;
@@ -22954,48 +22959,55 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      * @return {object} answer
      */
     createAnswer: function createAnswer(answer) {
+      var _this4 = this;
+
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-        var response;
+        var data, response;
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.prev = 0;
-                _context3.next = 3;
-                return _nextcloud_axios__WEBPACK_IMPORTED_MODULE_2__["default"].post((0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_1__.generateOcsUrl)('apps/forms/api/v1.1/option'), {
+                data = {
                   questionId: answer.questionId,
-                  text: answer.text,
-                  isOpen: answer.isOpen
-                });
+                  text: answer.text
+                };
 
-              case 3:
+                if (!_this4.isDropdown) {
+                  data.isOpen = answer.isOpen;
+                }
+
+                _context3.next = 5;
+                return _nextcloud_axios__WEBPACK_IMPORTED_MODULE_2__["default"].post((0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_1__.generateOcsUrl)('apps/forms/api/v1.1/option'), data);
+
+              case 5:
                 response = _context3.sent;
                 // Was synced once, this is now up to date with the server
                 delete answer.local;
                 return _context3.abrupt("return", Object.assign({}, answer, (0,_utils_OcsResponse2Data__WEBPACK_IMPORTED_MODULE_7__["default"])(response)));
 
-              case 8:
-                _context3.prev = 8;
+              case 10:
+                _context3.prev = 10;
                 _context3.t0 = _context3["catch"](0);
                 (0,_nextcloud_dialogs__WEBPACK_IMPORTED_MODULE_0__.showError)(t('forms', 'Error while saving the answer'));
                 console.error(_context3.t0);
 
-              case 12:
+              case 14:
                 return _context3.abrupt("return", answer);
 
-              case 13:
+              case 15:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 8]]);
+        }, _callee3, null, [[0, 10]]);
       }))();
     },
     debounceCreateAnswer: (0,p_debounce__WEBPACK_IMPORTED_MODULE_3__["default"])(function (answer) {
-      var _this4 = this;
+      var _this5 = this;
 
       return this.queue.add(function () {
-        return _this4.createAnswer(answer);
+        return _this5.createAnswer(answer);
       });
     }, 100),
 
@@ -23006,40 +23018,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
      * @param {object} answer the answer to sync
      */
     updateAnswer: function updateAnswer(answer) {
-      var _this5 = this;
+      var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+        var data;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.prev = 0;
-                _context4.next = 3;
+                data = {
+                  text: answer.text
+                };
+
+                if (!_this6.isDropdown) {
+                  data.isOpen = answer.isOpen;
+                }
+
+                _context4.next = 5;
                 return _nextcloud_axios__WEBPACK_IMPORTED_MODULE_2__["default"].post((0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_1__.generateOcsUrl)('apps/forms/api/v1.1/option/update'), {
-                  id: _this5.answer.id,
-                  keyValuePairs: {
-                    text: answer.text,
-                    isOpen: answer.isOpen
-                  }
+                  id: _this6.answer.id,
+                  keyValuePairs: data
                 });
 
-              case 3:
+              case 5:
                 console.debug('Updated answer', answer);
-                _context4.next = 9;
+                _context4.next = 11;
                 break;
 
-              case 6:
-                _context4.prev = 6;
+              case 8:
+                _context4.prev = 8;
                 _context4.t0 = _context4["catch"](0);
                 // showError(t('forms', 'Error while saving the answer'))
                 console.error(_context4.t0);
 
-              case 9:
+              case 11:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[0, 6]]);
+        }, _callee4, null, [[0, 8]]);
       }))();
     }
   }
@@ -99030,4 +99048,4 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].prototype.n = _nextcloud_l10n__WEBPA
 
 /******/ })()
 ;
-//# sourceMappingURL=forms-submit.js.map?v=ef31ede0fa41bc9bccf1
+//# sourceMappingURL=forms-submit.js.map?v=eec65da65a3362648bc5

@@ -85,7 +85,7 @@
 					@close="closeModal">
 					<div class="modal__content">
 						<iframe
-							:src="`../../files`"
+							:src="currentUrl"
 							width="100%"
 							height="100%"
 							frameborder="0" />
@@ -244,6 +244,7 @@ export default {
 			img: false,
 			color: '#ffffff',
 			modal: false,
+			currentUrl: "",
 		}
 	},
 
@@ -313,6 +314,10 @@ export default {
 		'form.img'() {
 			this.img = this.form.img;
 		},
+	},
+
+	created() {
+		this.currentUrl = 'http://' + window.location.host + '/apps/files/';
 	},
 
 	beforeMount() {
