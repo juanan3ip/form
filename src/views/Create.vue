@@ -317,7 +317,7 @@ export default {
 	},
 
 	created() {
-		this.currentUrl = 'http://' + window.location.host + '/apps/files/';
+		this.currentUrl = 'https://' + window.location.host + '/apps/files/';
 	},
 
 	beforeMount() {
